@@ -8,6 +8,17 @@ set(RAPIDYAML_DIR ${ESI_EXTERNS_DIR}/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
 set(C4CORE_SRC ${RAPIDYAML_DIR}/extern/c4core/src/)
 set(C4CORE_EXTERN ${RAPIDYAML_DIR}/extern/c4core/extern)
+
+# BOOST
+set(DEV_INSTALL_PATH ${CMAKE_CURRENT_LIST_DIR}/..) # Modify this for your needs
+set(BOOST_ROOT ${DEV_INSTALL_PATH}/boost_1_72_0)
+set(BOOST_INCLUDEDIR ${BOOST_ROOT}/boost)
+set(BOOST_LIBRARYDIR ${BOOST_ROOT}/libs)
+#-------------------------------------------------------
+
+#-------------------------------------------------------
+# PROJECTS TO BE INCLUDED
+find_package(Boost)
 #-------------------------------------------------------
 
 #-------------------------------------------------------
