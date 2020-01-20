@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 project(EveSDEImporter)
 
+message(STATUS "MSVC_TOOLSET_VERSION: ${MSVC_TOOLSET_VERSION}")
+
 #-------------------------------------------------------
 # VARIABLES
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
@@ -10,6 +12,7 @@ set(C4CORE_SRC ${RAPIDYAML_DIR}/extern/c4core/src/)
 set(C4CORE_EXTERN ${RAPIDYAML_DIR}/extern/c4core/extern)
 
 # BOOST
+set(Boost_DEBUG ON)
 set(BOOST_ROOT "F:\\dev_programs\\boost") # Modify this for your needs
 set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_72)
 set(Boost_LIBRARY_DIR ${BOOST_ROOT}/lib)
@@ -35,6 +38,7 @@ if (Boost_FOUND)
 	#-------------------------------------------------------
 	# HEADER DIRECTORIES
 	include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXTERN} ${BOOST_INCLUDEDIR})
+	link_directories(${Boost_LIBRARY_DIR})
 	#-------------------------------------------------------
 
 	#-------------------------------------------------------
