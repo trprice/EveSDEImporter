@@ -16,6 +16,7 @@ set(Boost_DEBUG ON)
 set(BOOST_ROOT "F:\\dev_programs\\boost") # Modify this for your needs
 set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_72)
 set(Boost_LIBRARY_DIR ${BOOST_ROOT}/lib)
+set(Boost_USE_STATIC_LIBS ON)
 #-------------------------------------------------------
 
 #-------------------------------------------------------
@@ -51,6 +52,13 @@ if (Boost_FOUND)
 	set(CMAKE_CXX_STANDARD 11)
 	set(CMAKE_CXX_STANDARD_REQUIRED ON)
 	set(CMAKE_CXX_EXTENSIONS OFF)
+	#-------------------------------------------------------
+
+	#-------------------------------------------------------
+	# Linker Settings
+	#if(MSVC)
+	#  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB")
+	#endif()
 	#-------------------------------------------------------
 
 	#-------------------------------------------------------
