@@ -26,13 +26,23 @@ bool setup_options(int argc, char* argv[])
 	
 	po::variables_map vm;
 	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
 
 	if (vm.count("help"))
 	{
 		std::cout << desc << std::endl;
 		return false;
 	}
+
+	try {
+		po::notify(vm);
+	}
+	catch (boost::program_options::required_option& e)
+	{
+		std::cerr << "Error: " << e.what() << "\n";
+		return false;
+	}
+
+	return true;
 }
 
 int main(int argc, char *argv[])
