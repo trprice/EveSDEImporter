@@ -44,7 +44,7 @@ if (Boost_FOUND)
 
 	#-------------------------------------------------------
 	# SOURCES
-	set(PROJECT_SOURCES main.cpp)
+	set(PROJECT_SOURCES main.cpp parser/SDEParser.h parser/SDEParser.cpp)
 	#-------------------------------------------------------
 
 	#-------------------------------------------------------
