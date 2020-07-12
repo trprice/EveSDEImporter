@@ -1,70 +1,79 @@
-cmake_minimum_required(VERSION 3.9)
-project(EveSDEImporter)
+cmake_minimum_required(VERSION 3.15)
 
-message(STATUS "MSVC_TOOLSET_VERSION: ${MSVC_TOOLSET_VERSION}")
+# Set the project name to your project name, my project isn't very descriptive
+project(myproject CXX)
+include(cmake/StandardProjectSettings.cmake)
+include(cmake/PreventInSourceBuilds.cmake)
 
-#-------------------------------------------------------
-# VARIABLES
-set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
-set(RAPIDYAML_DIR ${ESI_EXTERNS_DIR}/rapidyaml)
-set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
-set(C4CORE_SRC ${RAPIDYAML_DIR}/extern/c4core/src/)
-set(C4CORE_EXTERN ${RAPIDYAML_DIR}/extern/c4core/extern)
+# Link this 'library' to set the c++ standard / compile-time options requested
+add_library(project_options INTERFACE)
+target_compile_features(project_options INTERFACE cxx_std_17)
 
-# BOOST
-set(Boost_DEBUG ON)
-set(BOOST_ROOT "F:\\dev_programs\\boost") # Modify this for your needs
-set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_72)
-set(Boost_LIBRARY_DIR ${BOOST_ROOT}/lib)
-set(Boost_USE_STATIC_LIBS ON)
-#-------------------------------------------------------
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+  option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
+  if(ENABLE_BUILD_WITH_TIME_TRACE)
+    add_compile_definitions(project_options INTERFACE -ftime-trace)
+  endif()
+endif()
 
-#-------------------------------------------------------
-# PROJECTS TO BE INCLUDED
-find_package(Boost 1.72.0 COMPONENTS program_options REQUIRED)
-#find_package(Boost 1.72 REQUIRED)
-#-------------------------------------------------------
+# Link this 'library' to use the warnings specified in CompilerWarnings.cmake
+add_library(project_warnings INTERFACE)
 
-#-------------------------------------------------------
-# SUBDIRECTORIES
-#	Do I need to include the cmake file instead of making
-#	this a subdirectory to get access to the settings they
-#	created for include directories?
-#
-#	Or just add include_directories statements for everything?
-add_subdirectory(${RAPIDYAML_DIR})
-#-------------------------------------------------------
+# enable cache system
+include(cmake/Cache.cmake)
 
-if (Boost_FOUND)
-	#-------------------------------------------------------
-	# HEADER DIRECTORIES
-	include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXTERN} ${BOOST_INCLUDEDIR})
-	link_directories(${Boost_LIBRARY_DIR})
-	#-------------------------------------------------------
+# standard compiler warnings
+include(cmake/CompilerWarnings.cmake)
+set_project_warnings(project_warnings)
 
-	#-------------------------------------------------------
-	# SOURCES
-	set(PROJECT_SOURCES main.cpp parser/SDEParser.h parser/SDEParser.cpp)
-	#-------------------------------------------------------
+# sanitizer options if supported by compiler
+include(cmake/Sanitizers.cmake)
+enable_sanitizers(project_options)
 
-	#-------------------------------------------------------
-	# C++ Settings
-	set(CMAKE_CXX_STANDARD 11)
-	set(CMAKE_CXX_STANDARD_REQUIRED ON)
-	set(CMAKE_CXX_EXTENSIONS OFF)
-	#-------------------------------------------------------
+# allow for static analysis options
+include(cmake/StaticAnalyzers.cmake)
 
-	#-------------------------------------------------------
-	# Linker Settings
-	#if(MSVC)
-	#  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB")
-	#endif()
-	#-------------------------------------------------------
+option(BUILD_SHARED_LIBS "Enable compilation of shared libraries" OFF)
+option(ENABLE_TESTING "Enable Test Builds" OFF) # Only off because I haven't built in tests yet
+option(ENABLE_FUZZING "Enable Fuzzing Builds" OFF)
 
-	#-------------------------------------------------------
-	# EXECUTABLE
-	add_executable(EveSDEImporter ${PROJECT_SOURCES})
+# Very basic PCH example
+option(ENABLE_PCH "Enable Precompiled Headers" OFF)
+if(ENABLE_PCH)
+  # This sets a global PCH parameter, each project will build its own PCH, which is a good idea if any #define's change
+  #
+  # consider breaking this out per project as necessary
+  target_precompile_headers(
+    project_options
+    INTERFACE
+    <vector>
+    <string>
+    <map>
+    <utility>)
+endif()
 
-	target_link_libraries(EveSDEImporter Boost::program_options)
-	#-------------------------------------------------------
+# Set up some extra Conan dependencies based on our needs before loading Conan
+set(CONAN_EXTRA_REQUIRES "")
+set(CONAN_EXTRA_OPTIONS "")
+
+include(cmake/Conan.cmake)
+run_conan()
+
+if(ENABLE_TESTING)
+  enable_testing()
+  message("Building Tests. Be sure to check out test/constexpr_tests for constexpr testing")
+  add_subdirectory(test)
+endif()
+
+if(ENABLE_FUZZING)
+  message("Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
+  add_subdirectory(fuzz_test)
+endif()
+
+add_subdirectory(src)
+
+option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
+if(ENABLE_UNITY)
+  # Add for any project you want to apply unity builds for
+  set_target_properties(intro PROPERTIES UNITY_BUILD ON)
 endif()
