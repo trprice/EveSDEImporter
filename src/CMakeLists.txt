@@ -1,3 +1,7 @@
+# Include Conan info
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
 # VARIABLES
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(RAPIDYAML_DIR ${ESI_EXTERNS_DIR}/rapidyaml)
@@ -6,6 +10,7 @@ set(C4CORE_SRC ${RAPIDYAML_DIR}/extern/c4core/src/)
 set(C4CORE_EXTERN ${RAPIDYAML_DIR}/extern/c4core/extern)
 
 # Dependencies -- Boost
+Set(Boost_INSTALL_DIR ${CONAN_BOOST_ROOT})
 find_package(Boost 1.73.0 COMPONENTS program_options REQUIRED)
 
 #-------------------------------------------------------
