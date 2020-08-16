@@ -6,8 +6,10 @@ conan_basic_setup()
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(RAPIDYAML_DIR ${ESI_EXTERNS_DIR}/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
-set(C4CORE_SRC ${RAPIDYAML_DIR}/extern/c4core/src/)
-set(C4CORE_EXTERN ${RAPIDYAML_DIR}/extern/c4core/extern)
+set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
+SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)
+set(C4CORE_SRC ${C4CORE_DIR}/src)
+set(C4CORE_EXT ${C4CORE_DIR}/ext)
 
 # Dependencies -- Boost
 Set(Boost_INSTALL_DIR ${CONAN_BOOST_ROOT})
@@ -26,7 +28,7 @@ add_subdirectory(${RAPIDYAML_DIR})
 
 #-------------------------------------------------------
 # HEADER DIRECTORIES
-include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXTERN})
+include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT})
 #-------------------------------------------------------
 
 # Main executable
