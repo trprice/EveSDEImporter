@@ -11,9 +11,12 @@ SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)
 set(C4CORE_SRC ${C4CORE_DIR}/src)
 set(C4CORE_EXT ${C4CORE_DIR}/ext)
 
+# Main executable
+add_executable(${PROJECT_NAME} main.cpp)
+
+
 # Dependencies -- Boost
-Set(Boost_INSTALL_DIR ${CONAN_BOOST_ROOT})
-find_package(Boost 1.73.0 COMPONENTS program_options REQUIRED)
+find_package(Boost COMPONENTS REQUIRED program_options)
 
 #-------------------------------------------------------
 # Sub directories
@@ -29,13 +32,11 @@ add_subdirectory(${RAPIDYAML_DIR})
 #-------------------------------------------------------
 # HEADER DIRECTORIES
 include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT})
-#-------------------------------------------------------
+#-------------------------------------------------------\
 
-# Main executable
-add_executable(intro main.cpp)
 target_link_libraries(
-  intro
-  PRIVATE project_options
+  ${PROJECT_NAME}
+  PUBLIC project_options
           project_warnings
           SDEParser
           Boost::program_options
