@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 
 # Set the project name to your project name, my project isn't very descriptive
-project(myproject CXX)
+set(PROJECT_NAME EveSDEImporter)
+project(${PROJECT_NAME} CXX)
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
 
@@ -75,5 +76,5 @@ add_subdirectory(src)
 option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
 if(ENABLE_UNITY)
   # Add for any project you want to apply unity builds for
-  set_target_properties(intro PROPERTIES UNITY_BUILD ON)
+  set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
 endif()

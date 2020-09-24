@@ -17,7 +17,6 @@ macro(run_conan)
     REQUIRES
     ${CONAN_EXTRA_REQUIRES}
     catch2/2.11.0
-    cmake_findboost_modular/1.69.0@bincrafters/stable
     boost/1.73.0
     fmt/6.2.0
     spdlog/1.5.0
