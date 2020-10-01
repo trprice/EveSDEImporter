@@ -12,5 +12,6 @@ void SDEParser::readFile()
 	std::vector<char> bytes(fileSize);
 	ifs.read(bytes.data(), fileSize);
 
-	this->fileData = std::string(bytes.data(), fileSize);
+	c4::substr data(bytes.data(), fileSize);
+	parsedData = ryml::parse(data);
 }

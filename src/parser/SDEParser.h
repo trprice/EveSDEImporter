@@ -7,7 +7,7 @@ class SDEParser
 {
 private:
 	std::string fileName;
-	std::string fileData;
+    ryml::Tree parsedData;
 
 	void readFile();
 
@@ -15,7 +15,7 @@ private:
 public:
 	SDEParser(std::string fName) : fileName(fName)
 	{
-		
+          readFile();
 	}
 };
 

@@ -39,7 +39,8 @@ target_link_libraries(
   PUBLIC  project_options
           project_warnings
           SDEParser
-          #Boost::program_options
+          c4core::c4core
+          ryml::ryml
           CONAN_PKG::boost
           CONAN_PKG::fmt
           CONAN_PKG::spdlog)

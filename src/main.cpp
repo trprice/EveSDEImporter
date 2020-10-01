@@ -4,6 +4,8 @@
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
 
+#include "parser/SDEParser.h"
+
 struct Options
 {
 	std::string sde_path;
@@ -51,6 +53,8 @@ int main(int argc, char *argv[])
 	Options opts;
 	if (!opts.setup_options(argc, argv))
 		return -1;
+
+	SDEParser parser(opts.sde_path);
 
 	return 1;
 }
