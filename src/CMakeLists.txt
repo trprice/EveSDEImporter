@@ -39,8 +39,7 @@ target_link_libraries(
   PUBLIC  project_options
           project_warnings
           SDEParser
-          c4core::c4core
-          ryml::ryml
+          ryml
           CONAN_PKG::boost
           CONAN_PKG::fmt
           CONAN_PKG::spdlog)
