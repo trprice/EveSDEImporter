@@ -1,7 +1,7 @@
 # VARIABLES
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
-set(RAPIDYAML_DIR ${ESI_EXTERNS_DIR}/rapidyaml)
+set(RAPIDYAML_DIR F:/development/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
 set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
 SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)
@@ -19,7 +19,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 add_subdirectory(parser)
 
 # RapidYAML
-add_subdirectory(${RAPIDYAML_DIR})
+add_subdirectory(${RAPIDYAML_DIR} ryml)
 #-------------------------------------------------------
 
 #-------------------------------------------------------
