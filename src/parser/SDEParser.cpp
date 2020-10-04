@@ -12,11 +12,14 @@ void SDEParser::readFile()
 	ifs.seekg(0, std::ios::beg);
 
 	std::vector<char> bytes(length);
-    ifs.read(bytes.data(), length);
+    ifs.read(bytes.data(), length-1);
 
-	c4::substr data(bytes.data(), bytes.size() - 1); // The file I tried with had a newline and caused ryml::parse to crash
+	c4::substr data(bytes.data(), bytes.size());
 
-	std::cout << bytes.data() << std::endl;
+	std::cout << data.data() << std::endl;
 
 	parsedData = ryml::parse(data);
+
+	ryml::NodeRef node = parsedData["agentType: NonAgent"];
+    std::cout << node.key() << ": " << node.val() << std::endl;
 }
