@@ -35,7 +35,7 @@ enable_sanitizers(project_options)
 include(cmake/StaticAnalyzers.cmake)
 
 option(BUILD_SHARED_LIBS "Enable compilation of shared libraries" OFF)
-option(ENABLE_TESTING "Enable Test Builds" OFF) # Only off because I haven't built in tests yet
+option(ENABLE_TESTING "Enable Test Builds" ON)
 option(ENABLE_FUZZING "Enable Fuzzing Builds" OFF)
 
 # Very basic PCH example
@@ -63,7 +63,7 @@ run_conan()
 if(ENABLE_TESTING)
   enable_testing()
   message("Building Tests. Be sure to check out test/constexpr_tests for constexpr testing")
-  add_subdirectory(test)
+  add_subdirectory(tests)
 endif()
 
 if(ENABLE_FUZZING)

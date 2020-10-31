@@ -11,3 +11,4 @@ include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT})
 #-------------------------------------------------------
 
 add_library(SDEParser STATIC SDEParser.cpp)
+target_compile_features(SDEParser INTERFACE cxx_std_17)

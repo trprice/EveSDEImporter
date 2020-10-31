@@ -10,6 +10,7 @@ set(C4CORE_EXT ${C4CORE_DIR}/ext)
 
 # Main executable
 add_executable(${PROJECT_NAME} main.cpp)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 #-------------------------------------------------------
 # Sub directories
