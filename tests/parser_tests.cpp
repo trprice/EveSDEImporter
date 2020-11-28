@@ -4,6 +4,7 @@
 #include "ryml.hpp"
 #include <vector>
 #include <string>
+#include <iostream>
 
 TEST_CASE("Tests to prove the parsing works")
 {
@@ -16,9 +17,22 @@ TEST_CASE("Tests to prove the parsing works")
 
     ryml::Tree parsedData = parser.getParsedData();
 
-    // Why is the size == 7 instead of 2 sequences?
-    CHECK( parsedData.size() == 2 );
+    // Is this the correct explanation for the size being 7?
+    //      1 document
+    //      2 sequences
+    //      4 mappings
+    //      ----------
+    //      7 total
+    CHECK(parsedData.size() == 7);
 
-    REQUIRE(parsedData[0].is_seq());
+    // My understanding is that the above document should be a sequence of maps. Testing the tree object for is_seq() doesn't compile. Possibly because the is_XXX() functions have to be run on a NodeRef.
+    REQUIRE(parsedData[0].is_map());
+
+    ryml::NodeRef node = parsedData;// Take the root
+    CHECK(node.is_seq());// As a node this is a squence.
+    CHECK(node[0].is_map());
+    CHECK(node[0]["agentType"].is_keyval());
+    CHECK(node[0]["agentType"].has_val());
+    CHECK(node[0]["agentType"].val() == "NonAgent");// How do I check get a mapping and check the value?
   }
 }
