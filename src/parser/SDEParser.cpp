@@ -5,13 +5,19 @@
 
 void SDEParser::readFile()
 {
-  std::ifstream ifs(this->fileName.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
+  std::ifstream ifs(this->fileName, std::ifstream::in );
 
-  ifs.seekg(0, std::ios::end);
-  int length = ifs.tellg();
-  ifs.seekg(0, std::ios::beg);
+  if (ifs.is_open()) {
+    ifs.seekg(0, std::ifstream::end);
+    int length = ifs.tellg();
+    ifs.seekg(0, std::ifstream::beg);
 
-  ifs.read(bytes.data(), length - 1);
+    bytes.resize(length);
+    ifs.read(&bytes[0], length);
+  }
+  else {
+    // What?
+  }
 }
 
 void SDEParser::parseData()
