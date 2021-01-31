@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 # Set the project name to your project name, my project isn't very descriptive
 set(PROJECT_NAME EveSDEImporter)
 project(${PROJECT_NAME} CXX)
+#project(${PROJECT_NAME})
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
 
@@ -10,11 +11,14 @@ include(cmake/PreventInSourceBuilds.cmake)
 add_library(project_options INTERFACE)
 target_compile_features(project_options INTERFACE cxx_std_17)
 
+  message("Setting CMAKE_CXX_COMPILER to ${CMAKE_CXX_COMPILER_ID}")
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
   option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
   if(ENABLE_BUILD_WITH_TIME_TRACE)
     add_compile_definitions(project_options INTERFACE -ftime-trace)
   endif()
+
+  #set(CMAKE_CXX_COMPILER CMAKE_CXX_COMPILER_ID)
 endif()
 
 # Link this 'library' to use the warnings specified in CompilerWarnings.cmake
