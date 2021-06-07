@@ -20,6 +20,7 @@ macro(run_conan)
     boost/1.73.0
     fmt/6.2.0
     spdlog/1.5.0
+    fff/1.1
     OPTIONS
     ${CONAN_EXTRA_OPTIONS}
     BASIC_SETUP

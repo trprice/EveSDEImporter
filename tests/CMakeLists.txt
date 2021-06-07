@@ -13,15 +13,15 @@ set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
 SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)
 set(C4CORE_SRC ${C4CORE_DIR}/src)
 set(C4CORE_EXT ${C4CORE_DIR}/ext)
-include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT})
 #-------------------------------------------------------
 
+include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT} ${CONAN_INCLUDE_DIRS_FFF})
 
 add_library(catch_main STATIC catch_main.cpp)
 target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
 target_link_libraries(catch_main PRIVATE project_options)
 
-add_executable(parser_tests parser_tests.cpp)
+add_executable(parser_tests parser_tests.cpp parser_tests_with_fakes.cpp)
 target_link_libraries(parser_tests PRIVATE project_warnings project_options catch_main ryml SDEParser)
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. TEST_PREFIX to

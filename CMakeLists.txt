@@ -9,7 +9,7 @@ include(cmake/PreventInSourceBuilds.cmake)
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(project_options INTERFACE)
-target_compile_features(project_options INTERFACE cxx_std_17)
+#target_compile_features(project_options INTERFACE cxx_std_17)
 
   message("Setting CMAKE_CXX_COMPILER to ${CMAKE_CXX_COMPILER_ID}")
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
