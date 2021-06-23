@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include "fff.h"
-#include "..\src\parser\SDEParser.h"
+#include "../src/parser/SDEParser.h"
 #include <vector>
 #include <string>
 #include <iostream>

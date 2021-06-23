@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include "..\src\parser\SDEParser.h"
+#include "../src/parser/SDEParser.h"
 #include "ryml.hpp"
 #include <vector>
 #include <string>
