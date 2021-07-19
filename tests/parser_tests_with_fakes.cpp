@@ -18,7 +18,6 @@ TEST_CASE("Try Parser With Fakes")
 
       SDEParser parser(agentTypeData);
 
-      REQUIRE(parse_fake.call_count == 0);
-      REQUIRE( 1 == 2 );
+      REQUIRE(parse_fake.call_count == 1);
     }
 }
