@@ -1,7 +1,7 @@
 # VARIABLES
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(ESI_EXTERNS_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
-set(RAPIDYAML_DIR /Users/taylor/development/rapidyaml)
+set(RAPIDYAML_DIR F:/development/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
 set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
 SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)

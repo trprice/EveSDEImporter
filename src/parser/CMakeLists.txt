@@ -1,4 +1,4 @@
-set(RAPIDYAML_DIR /Users/Taylor/development/rapidyaml)
+set(RAPIDYAML_DIR F:/development/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
 set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
 SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)

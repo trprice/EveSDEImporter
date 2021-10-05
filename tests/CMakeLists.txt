@@ -7,7 +7,7 @@ endif()
 
 #-------------------------------------------------------
 # RYML directories
-set(RAPIDYAML_DIR /Users/taylor/development/rapidyaml)
+set(RAPIDYAML_DIR F:/development/rapidyaml)
 set(RAPIDYAML_SRC ${RAPIDYAML_DIR}/src)
 set(RAPIDYAML_EXT ${RAPIDYAML_DIR}/ext)
 SET(C4CORE_DIR ${RAPIDYAML_EXT}/c4core)
@@ -25,6 +25,7 @@ target_link_libraries(catch_main PRIVATE project_options)
 
 add_executable(parser_tests parser_tests.cpp parser_tests_with_fakes.cpp)
 target_compile_features(parser_tests PRIVATE cxx_std_11)
+target_compile_options(parser_tests PRIVATE /P)
 target_link_libraries(parser_tests PRIVATE project_warnings project_options catch_main ryml SDEParser)
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. TEST_PREFIX to

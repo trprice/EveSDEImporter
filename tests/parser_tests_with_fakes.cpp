@@ -11,13 +11,15 @@ FAKE_VALUE_FUNC(c4::yml::Tree, parse, c4::substr);
 
 TEST_CASE("Try Parser With Fakes")
 {
-    SECTION("Check call count of the fake")
+    SECTION("Test")
     {
-      std::string str = "-   agentType: NonAgent\n    agentTypeID: 1\n-   agentType: BasicAgent\n    agentTypeID: 2";
-      std::vector<char> agentTypeData(str.begin(), str.end());
+        RESET_FAKE(parse);
 
-      SDEParser parser(agentTypeData);
+        std::string str = "-   agentType: NonAgent\n    agentTypeID: 1\n-   agentType: BasicAgent\n    agentTypeID: 2";
+        std::vector<char> agentTypeData(str.begin(), str.end());
 
-      REQUIRE(parse_fake.call_count == 1);
+        SDEParser parser(agentTypeData);
+
+        CHECK(parse_fake.call_count == 1);
     }
 }
