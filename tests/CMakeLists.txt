@@ -15,15 +15,13 @@ set(C4CORE_SRC ${C4CORE_DIR}/src)
 set(C4CORE_EXT ${C4CORE_DIR}/ext)
 #-------------------------------------------------------
 
-include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT} ${CONAN_INCLUDE_DIRS_FFF})
-
-
 add_library(catch_main STATIC catch_main.cpp)
 target_compile_features(catch_main PRIVATE cxx_std_11)
 target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
 target_link_libraries(catch_main PRIVATE project_options)
 
 add_executable(parser_tests parser_tests.cpp)
+target_include_directories(parser_tests PUBLIC ${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT} ${CONAN_INCLUDE_DIRS_FFF})
 target_compile_features(parser_tests PRIVATE cxx_std_11)
 target_link_libraries(parser_tests PRIVATE project_warnings project_options catch_main ryml SDEParser)
 

@@ -23,11 +23,6 @@ add_subdirectory(parser)
 add_subdirectory(${RAPIDYAML_DIR} ryml)
 #-------------------------------------------------------
 
-#-------------------------------------------------------
-# HEADER DIRECTORIES
-include_directories(${RAPIDYAML_SRC} ${C4CORE_SRC} ${C4CORE_EXT})
-#-------------------------------------------------------\
-
 # Include Conan info
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()

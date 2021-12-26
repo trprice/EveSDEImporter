@@ -18,11 +18,12 @@ macro(run_conan)
     ${CONAN_EXTRA_REQUIRES}
     catch2/2.11.0
     boost/1.73.0
-    fmt/6.2.0
-    spdlog/1.5.0
+    fmt/8.0.1
+    spdlog/1.9.2
     fff/1.1
     OPTIONS
     ${CONAN_EXTRA_OPTIONS}
+    spdlog:header_only=True
     BASIC_SETUP
     CMAKE_TARGETS # individual targets to link to
     BUILD

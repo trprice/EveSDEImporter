@@ -3,6 +3,7 @@
 #include "ryml.hpp"
 #include <string>
 #include <vector>
+#include "spdlog/sinks/basic_file_sink.h"
 
 class SDEParser
 {
@@ -10,6 +11,7 @@ private:
 	std::string fileName;
     std::vector<char> bytes;
     ryml::Tree parsedData;
+    std::shared_ptr<spdlog::logger> logger;
 
 	void readFile();
 
@@ -21,16 +23,9 @@ public:
 	//		If we really need this for other purposes, create either:
 	//			1. A setFile() type routine
 	//			2. A version of readFile() that takes a file name.
-	SDEParser(std::vector<char> data) {
-          bytes = data; // will this call a copy constructor for std::vector?
-          parseData();
-	}
+    SDEParser(std::vector<char> data);
 
-	SDEParser(std::string fName) : fileName(fName)
-	{
-          readFile();
-          parseData();
-	}
+	SDEParser(std::string fName);
 
 	ryml::Tree getParsedData() {
           return parsedData;
