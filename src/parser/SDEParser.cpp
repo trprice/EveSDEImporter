@@ -5,27 +5,30 @@
 
 SDEParser::SDEParser(std::vector<char> data)
 {
-  bytes = data;// will this call a copy constructor for std::vector?
-  parseData();
-
   try {
     logger = spdlog::basic_logger_mt("SDEParser_Logger", "logs/SDEParser_logger.txt");
+    logger->set_level(spdlog::level::debug);
   }
   catch (const spdlog::spdlog_ex &ex) {
     std::cout << "Log init failed: " << ex.what() << std::endl;
   }
+
+  bytes = data;// will this call a copy constructor for std::vector?
+  parseData();
 }
 
 SDEParser::SDEParser(std::string fName) : fileName(fName)
 {
-  readFile();
-  parseData();
-
   try {
     logger = spdlog::basic_logger_mt("SDEParser_Logger", "logs/SDEParser_logger.txt");
+    logger->set_level(spdlog::level::debug);
   } catch (const spdlog::spdlog_ex &ex) {
     std::cout << "Log init failed: " << ex.what() << std::endl;
   }
+
+  logger->debug("Parsing the following file: {}", fileName);
+  readFile();
+  parseData();
 }
 
 void SDEParser::readFile()
@@ -38,10 +41,12 @@ void SDEParser::readFile()
     ifs.seekg(0, std::ifstream::beg);
 
     bytes.resize(length);
-    ifs.read(&bytes[0], length);
+    ifs.read(&bytes[0], length); 
+
+    logger->debug("Read {} bytes from {}", length, fileName);
   }
   else {
-    logger->error("Could not open a filestream for the input file:");
+    logger->error("Could not open a filestream for the input file: {}", fileName);
   }
 }
 
